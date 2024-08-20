@@ -70,4 +70,29 @@ public class EpsImplements implements EpsI {
         return null;
     }
 
+    @Override
+    public List<EpsDto> selectAll() throws Exception {
+        List<EpsDto> eps = new ArrayList<>();
+        return eps;
+    }
+
+    @Override
+    public void InsertEps(EpsDto epsDto) throws Exception {
+
+    }
+
+    @Override
+    public void EditEps(EpsDto epsDto) throws Exception {
+
+    }
+
+    @Override
+    public void DeleteEps(Integer identidad) throws Exception {
+
+    }
+
+    @Override
+    public EpsDto EpsID(Integer identidad) throws Exception {
+        return null;
+    }
 }
