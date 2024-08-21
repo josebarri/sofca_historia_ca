@@ -1,98 +1,66 @@
 package com.sofca.historiaca.dao;
 
 import com.sofca.historiaca.dto.EpsDto;
+import com.sofca.historiaca.mapper.EpsMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import javax.sql.DataSource;
 import java.util.List;
-
-public class EpsImplements implements EpsI {
+@Repository
+public class EpsImplements implements EpsDaoInterface {
+public JdbcTemplate jdbcTemplate;
+public EpsImplements (DataSource dataSource){
+    this.jdbcTemplate = new JdbcTemplate(dataSource);
+}
     @Override
-    public List<EpsDto> listarEps() {
-        List<EpsDto> eps = new ArrayList<>();
-        EpsDto epsDto = new EpsDto();
-        epsDto.setId_eps("01");
-        epsDto.setNombre("EPS Salud Vida");
-        epsDto.setDireccion("Calle 123");
-        epsDto.setFecha("2024-08-19");
-        epsDto.setTelefono("123456789");
+    public List<EpsDto> selectAll(){
+   String SQL = "SELECT id_eps,nombre, direccion, fecha, telefono FROM EPS";
 
-        EpsDto eps2 = new EpsDto();
-        eps2.setId_eps("002");
-        eps2.setNombre("EPS Bienestar");
-        eps2.setDireccion("Avenida Siempre Viva");
-        eps2.setFecha("2024-08-19");
-        eps2.setTelefono("987654321");
-
-        EpsDto eps3 = new EpsDto();
-        eps3.setId_eps("003");
-        eps3.setNombre("EPS la mas");
-        eps3.setDireccion("sahagun");
-        eps3.setFecha("2024-08-19");
-        eps3.setTelefono("3156658467");
-        eps.add(eps3);
-        eps.add(eps2);
-        eps.add(epsDto);
-        return eps;
+        return jdbcTemplate.query(SQL, new EpsMapper());
     }
 
     @Override
-    public EpsDto slectById(String id) {
-        for (EpsDto eps : listarEps()) {
-            if (eps.getId_eps().equals(id)) {
-                return eps;
-            }
-        }
-        return null;
+    public void InsertEps(EpsDto epsDto){
+        String INSERT = "INSERT INTO eps(nombre, direccion, fecha, telefono, id_eps) VALUES ( ?, ?, ?, ?,?)";
+        jdbcTemplate.update(INSERT,
+                epsDto.getNombre(),
+                epsDto.getDireccion(),
+                epsDto.getFecha(),
+                epsDto.getTelefono(),
+                epsDto.getId_eps());
+        return;
     }
 
     @Override
-    public boolean dleteEps(String id) {
-        Iterator<EpsDto> iterator = listarEps().iterator();
-        while (iterator.hasNext()) {
-            EpsDto eps = iterator.next();
-            if (eps.getId_eps().equals(id)) {
-                iterator.remove();
-                return true;
-            }
-        }
-        return false;
+    public void EditEps(EpsDto epsDto){
+       String UPDATE=("UPDATE eps  SET nombre=?, direccion=?, fecha=?, telefono=? WHERE id_eps=?");
+
+       jdbcTemplate.update(UPDATE,
+               epsDto.getNombre(),
+               epsDto.getDireccion(),
+               epsDto.getFecha(),
+               epsDto.getTelefono(),
+               epsDto.getId_eps());
+       return;
     }
 
     @Override
-    public EpsDto filtroName(String nombre) {
-        for (EpsDto eps : listarEps()) {
-            if (eps.getNombre().equals(nombre)) {
-                return eps;
-            }
-        }
-        return null;
+    public void DeleteEps(EpsDto epsDto) {
+      String DELETE = "DELETE FROM eps WHERE id_eps=?";
+      jdbcTemplate.update(DELETE, epsDto.getId_eps());
     }
 
     @Override
-    public List<EpsDto> selectAll() throws Exception {
-        List<EpsDto> eps = new ArrayList<>();
-        return eps;
-    }
+    public EpsDto EpsID(EpsDto epsDto){
+     try {
+         String QUERY = "SELECT id_eps,nombre, direccion, fecha, telefono FROM eps WHERE id_eps=?";
+         return jdbcTemplate.queryForObject(QUERY, new EpsMapper(),epsDto.getId_eps());
 
-    @Override
-    public void InsertEps(EpsDto epsDto) throws Exception {
-
-    }
-
-    @Override
-    public void EditEps(EpsDto epsDto) throws Exception {
-
-    }
-
-    @Override
-    public void DeleteEps(Integer identidad) throws Exception {
-
-    }
-
-    @Override
-    public EpsDto EpsID(Integer identidad) throws Exception {
-        return null;
-    }
+     }catch (EmptyResultDataAccessException ex){
+         return null;
+     }
+     }
 }
