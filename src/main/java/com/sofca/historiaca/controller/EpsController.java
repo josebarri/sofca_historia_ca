@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @Slf4j
 @RequestMapping("/eps")
@@ -44,4 +47,17 @@ public ResponseEntity<ResponseMessage<EpsDto>> insert(@RequestBody EpsDto reques
 
         return ResponseEntity.ok(message);
     }
+    @GetMapping("/epsAll")
+    public ResponseEntity<ResponseMessage> selectAll() {
+        List<Map<String, Object>> list = null;
+        ResponseMessage message = null;
+        try {
+            list = this.epsBusinessInterface.selectAll();
+            message = new ResponseMessage<>(200, "findById, process successful ", list);
+        }catch (Exception ex){
+            message = new ResponseMessage<>(406, ex.getMessage(),null);
+        }
+        return ResponseEntity.ok(message);
+    }
+
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 @Transactional
@@ -16,8 +17,8 @@ public EpsBusinessImplements(EpsManagerInterface epsManagerInterface){
 }
 
     @Override
-    public List<EpsDto> selectAll()throws Exception {
-        return null;
+    public List<Map<String, Object>> selectAll() throws Exception {
+        return this.epsManagerInterface.selectAll();
     }
 
     @Override

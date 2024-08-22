@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Map;
+
 @Repository
 public class EpsImplements implements EpsDaoInterface {
 public JdbcTemplate jdbcTemplate;
@@ -16,10 +18,9 @@ public EpsImplements (DataSource dataSource){
     this.jdbcTemplate = new JdbcTemplate(dataSource);
 }
     @Override
-    public List<EpsDto> selectAll(){
-   String SQL = "SELECT id_eps,nombre, direccion, fecha, telefono FROM EPS";
-
-        return jdbcTemplate.query(SQL, new EpsMapper());
+    public List<Map<String, Object>> selectAll(){
+   String SQL = "SELECT * FROM EPS";
+        return jdbcTemplate.queryForList(SQL);
     }
 
     @Override

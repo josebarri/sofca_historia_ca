@@ -5,6 +5,7 @@ import com.sofca.historiaca.dto.EpsDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class EpsManagerImplements implements EpsManagerInterface {
@@ -13,8 +14,8 @@ public EpsManagerImplements(EpsDaoInterface epsI){
     this.epsI = epsI;
 }
     @Override
-    public List<EpsDto> selectAll() {
-        return null;
+    public List<Map<String, Object>> selectAll() {
+    return this.epsI.selectAll();
     }
 
     @Override

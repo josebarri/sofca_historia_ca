@@ -7,7 +7,7 @@ public class HistoriaClinicaDto {
     private String cc_paciente;
     private String nombre_paciente;
     private String apellido_paciente;
-    private Date fn_paciente;
+    private String fn_paciente;
     private String genero_paciente;
     private String  direccion_paciente;
     private String  telefono_paciente;
@@ -17,7 +17,7 @@ public class HistoriaClinicaDto {
     private String  especialidad_medico;
     private String  diagnostico;
     private String  tratamiento ;
-    private Date fecha_creacion;
+    private String fecha_creacion;
     private String  observaciones;
     private EpsDto epsDto;
 
@@ -53,11 +53,11 @@ public class HistoriaClinicaDto {
         this.apellido_paciente = apellido_paciente;
     }
 
-    public Date getFn_paciente() {
+    public String getFn_paciente() {
         return fn_paciente;
     }
 
-    public void setFn_paciente(Date fn_paciente) {
+    public void setFn_paciente(String fn_paciente) {
         this.fn_paciente = fn_paciente;
     }
 
@@ -133,11 +133,11 @@ public class HistoriaClinicaDto {
         this.tratamiento = tratamiento;
     }
 
-    public Date getFecha_creacion() {
+    public String getFecha_creacion() {
         return fecha_creacion;
     }
 
-    public void setFecha_creacion(Date fecha_creacion) {
+    public void setFecha_creacion(String fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
     }
 
