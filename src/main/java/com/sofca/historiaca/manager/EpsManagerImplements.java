@@ -35,7 +35,7 @@ public EpsManagerImplements(EpsDaoInterface epsI){
 
     @Override
     public void DeleteEps(EpsDto epsDto) {
-
+        this.epsI.DeleteEps(epsDto);
     }
 
     @Override

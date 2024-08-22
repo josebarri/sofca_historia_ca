@@ -33,7 +33,7 @@ public EpsBusinessImplements(EpsManagerInterface epsManagerInterface){
 
     @Override
     public void DeleteEps(EpsDto epsDto)throws Exception {
-
+        this.epsManagerInterface.DeleteEps(epsDto);
     }
 
     @Override

@@ -18,7 +18,6 @@ import java.util.Map;
 public class EpsController {
 @Autowired
     private EpsBusinessInterface epsBusinessInterface;
-
 @PostMapping("/saveEps")
 public ResponseEntity<ResponseMessage<EpsDto>> insert(@RequestBody EpsDto request){
     log.debug("REST request to insert Eps: {}", request);
@@ -47,16 +46,33 @@ public ResponseEntity<ResponseMessage<EpsDto>> insert(@RequestBody EpsDto reques
 
         return ResponseEntity.ok(message);
     }
+    @Operation(summary = "List EPS", description = "Proporciona una lista de EPS disponibles.")
     @GetMapping("/epsAll")
     public ResponseEntity<ResponseMessage> selectAll() {
         List<Map<String, Object>> list = null;
         ResponseMessage message = null;
         try {
             list = this.epsBusinessInterface.selectAll();
-            message = new ResponseMessage<>(200, "findById, process successful ", list);
+            message = new ResponseMessage<>(200, "selectAll, process successful ", list);
         }catch (Exception ex){
             message = new ResponseMessage<>(406, ex.getMessage(),null);
         }
+        return ResponseEntity.ok(message);
+    }
+    @Operation(summary = "List EPS", description = "Proporciona una EPS disponibles.")
+    @PostMapping("/delete")
+    public ResponseEntity<ResponseMessage<EpsDto>> dalete(@RequestBody EpsDto request) {
+        log.debug("REST request to saveOrUpdate Planilla : {}", request);
+        ResponseMessage message =null;
+        try{
+            this.epsBusinessInterface.DeleteEps(request);
+
+            message = new ResponseMessage<>(200, "delete, process successful ", request);
+        }catch (Exception ex){
+            message = new ResponseMessage<>(406, ex.getMessage(),null);
+        }
+
+
         return ResponseEntity.ok(message);
     }
 
