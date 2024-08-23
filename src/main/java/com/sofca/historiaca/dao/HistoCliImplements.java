@@ -85,7 +85,14 @@ public class HistoCliImplements implements HistoCliDaoInterface{
     @Override
     public HistoriaClinicaDto histoclinicabyid(HistoriaClinicaDto historiaClinicaDto) {
         try {
-            String QUERY = "SELECT  h.id_historial,  h.cc_paciente,   h.nombre_paciente,   h.apellido_paciente,  h.genero_paciente,   h.direccion_paciente,  h.telefono_paciente,   h.correo_paciente,  h.nombre_medico,  h.apellido_medico,  h.especialidad_medico, h.diagnostico,  h.tratamiento,   h.fecha_creacion, h.observaciones,  e.nombre AS nombre_eps, e.direccion AS direccion_eps, e.telefono AS telefono_eps, h.fn_paciente FROM  historial_clinico h INNER JOIN    eps e ON h.id_eps = e.id_eps WHERE id_historial=?";
+            String QUERY ="SELECT  h.id_historial,  h.cc_paciente," +
+                    "   h.nombre_paciente,   h.apellido_paciente,  h.genero_paciente, " +
+                    "  h.direccion_paciente,  h.telefono_paciente,   h.correo_paciente,  h.nombre_medico, " +
+                    " h.apellido_medico,  h.especialidad_medico, h.diagnostico,  h.tratamiento," +
+                    "   h.fecha_creacion, h.observaciones, e.id_eps, " +
+                    " e.nombre AS nombre_eps, e.direccion AS direccion_eps, " +
+                    "e.telefono AS telefono_eps, h.fn_paciente FROM  historial_clinico h INNER JOIN " +
+                    "   eps e ON h.id_eps = e.id_eps WHERE id_historial=?";
             return jdbcTemplate.queryForObject(QUERY, new HistorialMapper(),historiaClinicaDto.getId_historial());
 
         }catch (EmptyResultDataAccessException ex){

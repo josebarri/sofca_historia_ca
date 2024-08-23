@@ -15,6 +15,7 @@ import java.util.Map;
 @RestController
 @Slf4j
 @RequestMapping("/eps")
+@CrossOrigin
 public class EpsController {
 @Autowired
     private EpsBusinessInterface epsBusinessInterface;
