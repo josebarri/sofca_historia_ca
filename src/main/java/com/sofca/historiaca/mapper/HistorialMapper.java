@@ -1,7 +1,6 @@
 package com.sofca.historiaca.mapper;
 
-import com.sofca.historiaca.dto.EpsDto;
-import com.sofca.historiaca.dto.HistoriaClinicaDto;
+import com.sofca.historiaca.dto.MascotaDto;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -28,13 +27,13 @@ public class HistorialMapper implements RowMapper<HistoriaClinicaDto> {
         historiaClinicaDto.setTratamiento(rs.getString("tratamiento"));
         historiaClinicaDto.setDiagnostico(rs.getString("diagnostico"));
         historiaClinicaDto.setObservaciones(rs.getString("observaciones"));
-        EpsDto epsDto = new EpsDto();
-        epsDto.setId_eps(rs.getString("id_eps"));
-        epsDto.setNombre(rs.getString("nombre"));
-        epsDto.setTelefono(rs.getString("telefono"));
-        epsDto.setFecha(rs.getString("fecha"));
-        epsDto.setDireccion(rs.getString("direccion"));
-        historiaClinicaDto.setEpsDto(epsDto);
+        MascotaDto mascotaDto = new MascotaDto();
+        mascotaDto.setId_eps(rs.getString("id_eps"));
+        mascotaDto.setNombre(rs.getString("nombre"));
+        mascotaDto.setTelefono(rs.getString("telefono"));
+        mascotaDto.setFecha(rs.getString("fecha"));
+        mascotaDto.setDireccion(rs.getString("direccion"));
+        historiaClinicaDto.setEpsDto(mascotaDto);
 
         return historiaClinicaDto;
     }

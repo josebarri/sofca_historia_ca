@@ -1,7 +1,7 @@
 package com.sofca.historiaca.controller;
 
 import com.sofca.historiaca.business.EpsBusinessInterface;
-import com.sofca.historiaca.dto.EpsDto;
+import com.sofca.historiaca.dto.MascotaDto;
 import com.sofca.historiaca.util.ResponseMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class EpsController {
 @Autowired
     private EpsBusinessInterface epsBusinessInterface;
 @PostMapping("/saveEps")
-public ResponseEntity<ResponseMessage<EpsDto>> insert(@RequestBody EpsDto request){
+public ResponseEntity<ResponseMessage<MascotaDto>> insert(@RequestBody MascotaDto request){
     log.debug("REST request to insert Eps: {}", request);
     ResponseMessage message = null;
     try {
@@ -33,13 +33,13 @@ public ResponseEntity<ResponseMessage<EpsDto>> insert(@RequestBody EpsDto reques
 }
     @Operation(summary = "List EPS", description = "Proporciona una EPS disponibles.")
     @PostMapping("/findById")
-    public ResponseEntity<ResponseMessage<EpsDto>> findById(@RequestBody EpsDto request) {
+    public ResponseEntity<ResponseMessage<MascotaDto>> findById(@RequestBody MascotaDto request) {
         log.debug("REST request to saveOrUpdate Planilla : {}", request);
         ResponseMessage message =null;
         try{
-            EpsDto epsDtoO= epsBusinessInterface.EpsID(request);
+            MascotaDto mascotaDtoO = epsBusinessInterface.EpsID(request);
 
-            message = new ResponseMessage<>(200, "findById, process successful ", epsDtoO);
+            message = new ResponseMessage<>(200, "findById, process successful ", mascotaDtoO);
         }catch (Exception ex){
             message = new ResponseMessage<>(406, ex.getMessage(),null);
         }
@@ -62,7 +62,7 @@ public ResponseEntity<ResponseMessage<EpsDto>> insert(@RequestBody EpsDto reques
     }
     @Operation(summary = "List EPS", description = "Proporciona una EPS disponibles.")
     @PostMapping("/delete")
-    public ResponseEntity<ResponseMessage<EpsDto>> dalete(@RequestBody EpsDto request) {
+    public ResponseEntity<ResponseMessage<MascotaDto>> dalete(@RequestBody MascotaDto request) {
         log.debug("REST request to saveOrUpdate Planilla : {}", request);
         ResponseMessage message =null;
         try{

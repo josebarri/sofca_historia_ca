@@ -1,16 +1,18 @@
 package com.sofca.historiaca.dto;
 
+import java.util.UUID;
+
 public class UserDto {
-    private String id_user;
+    private UUID id_user;
     private String nombre;
     private String correo;
     private String password;
 
-    public String getId_user() {
+    public UUID getId_user() {
         return id_user;
     }
 
-    public void setId_user(String id_user) {
+    public void setId_user(UUID id_user) {
         this.id_user = id_user;
     }
 

@@ -1,7 +1,6 @@
 package com.sofca.historiaca.manager;
 
-import com.sofca.historiaca.dao.EpsDaoInterface;
-import com.sofca.historiaca.dto.EpsDto;
+import com.sofca.historiaca.dto.MascotaDto;
 import com.sofca.historiaca.exception.DaoException;
 import com.sofca.historiaca.exception.ManagerException;
 import org.springframework.stereotype.Component;
@@ -29,13 +28,13 @@ public EpsManagerImplements(EpsDaoInterface epsI){
     }
 
     @Override
-    public void InsertEps(EpsDto epsDto) throws ManagerException{
+    public void InsertEps(MascotaDto mascotaDto) throws ManagerException{
         try{
-            EpsDto epsDto1 = this.epsI.EpsID(epsDto);
-            if (epsDto1==null){
-                this.epsI.InsertEps(epsDto);
+            MascotaDto mascotaDto1 = this.epsI.EpsID(mascotaDto);
+            if (mascotaDto1 ==null){
+                this.epsI.InsertEps(mascotaDto);
             }else {
-                this.epsI.EditEps(epsDto);
+                this.epsI.EditEps(mascotaDto);
             }
         }catch (DaoException ex){
             throw new ManagerException(ex);
@@ -45,14 +44,14 @@ public EpsManagerImplements(EpsDaoInterface epsI){
     }
 
     @Override
-    public void EditEps(EpsDto epsDto) throws ManagerException{
+    public void EditEps(MascotaDto mascotaDto) throws ManagerException{
 
     }
 
     @Override
-    public void DeleteEps(EpsDto epsDto) throws ManagerException{
+    public void DeleteEps(MascotaDto mascotaDto) throws ManagerException{
         try{
-            this.epsI.DeleteEps(epsDto);
+            this.epsI.DeleteEps(mascotaDto);
         }catch (DaoException ex){
             throw new ManagerException(ex);
         }catch (Exception ex){
@@ -61,14 +60,14 @@ public EpsManagerImplements(EpsDaoInterface epsI){
     }
 
     @Override
-    public EpsDto EpsID(EpsDto epsDto) throws ManagerException {
-        EpsDto epsDto1 = null;
+    public MascotaDto EpsID(MascotaDto mascotaDto) throws ManagerException {
+        MascotaDto mascotaDto1 = null;
         try{
-             epsDto1 = this.epsI.EpsID(epsDto);
+             mascotaDto1 = this.epsI.EpsID(mascotaDto);
 
         }catch (Exception ex){
             throw new ManagerException(ex);
         }
-        return epsDto1;
+        return mascotaDto1;
     }
 }

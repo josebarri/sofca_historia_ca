@@ -1,6 +1,6 @@
 package com.sofca.historiaca.business;
 
-import com.sofca.historiaca.dto.EpsDto;
+import com.sofca.historiaca.dto.MascotaDto;
 import com.sofca.historiaca.exception.BusinessException;
 import com.sofca.historiaca.exception.ManagerException;
 import com.sofca.historiaca.manager.EpsManagerInterface;
@@ -32,10 +32,10 @@ public EpsBusinessImplements(EpsManagerInterface epsManagerInterface){
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = BusinessException.class)
-    public void InsertEps(EpsDto epsDto)throws BusinessException {
+    public void InsertEps(MascotaDto mascotaDto)throws BusinessException {
         try{
 
-            this.epsManagerInterface.InsertEps(epsDto);
+            this.epsManagerInterface.InsertEps(mascotaDto);
         }catch (ManagerException ex){
             throw new BusinessException(ex);
         }catch (Exception ex){
@@ -45,15 +45,15 @@ public EpsBusinessImplements(EpsManagerInterface epsManagerInterface){
     }
 
     @Override
-    public void EditEps(EpsDto epsDto)throws BusinessException {
+    public void EditEps(MascotaDto mascotaDto)throws BusinessException {
 
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = BusinessException.class)
-    public void DeleteEps(EpsDto epsDto)throws BusinessException {
+    public void DeleteEps(MascotaDto mascotaDto)throws BusinessException {
         try{
-            this.epsManagerInterface.DeleteEps(epsDto);
+            this.epsManagerInterface.DeleteEps(mascotaDto);
         }catch (ManagerException ex){
             throw new BusinessException(ex);
         }catch (Exception ex){
@@ -63,9 +63,9 @@ public EpsBusinessImplements(EpsManagerInterface epsManagerInterface){
 
     @Override
     @Transactional(readOnly = true)
-    public EpsDto EpsID(EpsDto epsDto)throws BusinessException {
+    public MascotaDto EpsID(MascotaDto mascotaDto)throws BusinessException {
         try{
-            return this.epsManagerInterface.EpsID(epsDto);
+            return this.epsManagerInterface.EpsID(mascotaDto);
         }catch (ManagerException ex){
             throw new BusinessException(ex);
         }catch (Exception ex){
