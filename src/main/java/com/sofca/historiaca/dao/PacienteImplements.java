@@ -10,11 +10,12 @@ import com.sofca.historiaca.util.crud.CrudDao;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
-
+@Repository
 public class PacienteImplements implements CrudDao<PacienteDto> {
     public JdbcTemplate jdbcTemplate;
     public PacienteImplements (DataSource dataSource){
