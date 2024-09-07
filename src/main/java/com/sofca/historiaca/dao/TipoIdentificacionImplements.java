@@ -22,7 +22,7 @@ public class TipoIdentificacionImplements implements CrudDao<TipoIdentificacionD
     @Override
     public List<TipoIdentificacionDto> selectAll() throws DaoException {
         try{
-            String SQL = "SELECT id_identificacion, tipo FROM tipo_identificacion;";
+            String SQL = "SELECT id_identificacion, tipo FROM tipo_identificacion";
             return jdbcTemplate.query(SQL, new TipoIdentidadMapper());
         }catch(DataAccessException ex){
             throw new DaoException(ex);
@@ -75,7 +75,6 @@ public class TipoIdentificacionImplements implements CrudDao<TipoIdentificacionD
         }catch (Exception ex){
             throw new DaoException(ex);
         }
-        return;
     }
 
     @Override

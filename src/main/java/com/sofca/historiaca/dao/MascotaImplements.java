@@ -29,7 +29,7 @@ public MascotaImplements(DataSource dataSource){
                     "    d.nombre_dueño,\n" +
                     "    d.apellido_dueño,\n" +
                     "    d.telefono,\n" +
-                    "    d.num_identificacion FROM mascota m INNER JOIN dueño d ON m.id_dueño = d.id_dueño";
+                    "    d.num_identificacion,d.id_ubicacion, d.identificacion FROM mascota m INNER JOIN dueño d ON m.id_dueño = d.id_dueño";
             return jdbcTemplate.query(SQL, new MascotaMapper());
         }catch(DataAccessException ex){
             throw new DaoException(ex);
@@ -67,7 +67,7 @@ public MascotaImplements(DataSource dataSource){
             "                    \"    d.nombre_dueño,\\n\" +\n" +
             "                    \"    d.apellido_dueño,\\n\" +\n" +
             "                    \"    d.telefono,\\n\" +\n" +
-            "                    \"    d.num_identificacion FROM mascota m INNER JOIN dueño d ON m.id_dueño = d.id_dueño where m.id_mascota= ?";
+            "                    \"    d.num_identificacion,d.id_ubicacion, d.identificacion FROM mascota m INNER JOIN dueño d ON m.id_dueño = d.id_dueño where m.id_mascota= ?";
         try {
             return this.jdbcTemplate.queryForObject(selectID, new MascotaMapper(), id);
         }catch (EmptyResultDataAccessException e){
@@ -96,7 +96,6 @@ public MascotaImplements(DataSource dataSource){
         }catch (Exception ex){
             throw new DaoException(ex);
         }
-        return;
     }
 
 
