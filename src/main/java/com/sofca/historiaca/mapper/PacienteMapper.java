@@ -16,6 +16,8 @@ public class PacienteMapper implements RowMapper<PacienteDto> {
         MascotaDto mascotaDto = new MascotaDto();
         DuenoDto duenoDto = new DuenoDto();
         duenoDto.setId_Dueño(UUID.fromString(rs.getString("id_dueno")));
+        duenoDto.setNombreDueño(rs.getString("nombre_dueno"));
+        duenoDto.setNum_identificacion(rs.getString("num_identificacion"));
         mascotaDto.setId_mascota(UUID.fromString(rs.getString("id_mascota")));
         mascotaDto.setNombre_mascota(rs.getString("nombre_mascota"));
         mascotaDto.setRaza(rs.getString("raza"));
