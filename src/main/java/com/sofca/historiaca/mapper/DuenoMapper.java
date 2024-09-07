@@ -19,9 +19,9 @@ public class DuenoMapper implements RowMapper<DuenoDto> {
         tipoIdentificacionDto.setIdIdentificacion(UUID.fromString(rs.getString("identificacion")));
         ubicacionDto.setIdUbicacion(UUID.fromString(rs.getString("id_ubicacion")));
 
-        duenoDto.setId_Dueño(UUID.fromString(rs.getString("id_dueño")));
-        duenoDto.setNombreDueño(rs.getString("nombre_dueño"));
-        duenoDto.setApellidoDueño(rs.getString("apellido_dueño"));
+        duenoDto.setId_Dueño(UUID.fromString(rs.getString("id_dueno")));
+        duenoDto.setNombreDueño(rs.getString("nombre_dueno"));
+        duenoDto.setApellidoDueño(rs.getString("apellido_dueno"));
         duenoDto.setTelefono(rs.getString("telefono"));
         duenoDto.setNum_identificacion(rs.getString("num_identificacion"));
         duenoDto.setTipoIdentificacionDto(tipoIdentificacionDto);

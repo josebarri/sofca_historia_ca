@@ -22,9 +22,9 @@ public class MascotaMapper implements RowMapper<MascotaDto> {
         ubicacionDto.setIdUbicacion(UUID.fromString(rs.getString("id_ubicacion")));
         tipoIdentificacionDto.setIdIdentificacion(UUID.fromString(rs.getString("identificacion")));
 
-        duenoDto.setId_Dueño(UUID.fromString(rs.getString("id_dueño")));
-        duenoDto.setNombreDueño(rs.getString("nombre_dueño"));
-        duenoDto.setApellidoDueño(rs.getString("apellido_dueño"));
+        duenoDto.setId_Dueño(UUID.fromString(rs.getString("id_dueno")));
+        duenoDto.setNombreDueño(rs.getString("nombre_dueno"));
+        duenoDto.setApellidoDueño(rs.getString("apellido_dueno"));
         duenoDto.setNum_identificacion(rs.getString("Num_identificacion"));
         duenoDto.setTelefono(rs.getString("telefono"));
         duenoDto.setTipoIdentificacionDto(tipoIdentificacionDto);

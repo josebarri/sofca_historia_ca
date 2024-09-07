@@ -23,7 +23,7 @@ public class dueñoImplements implements CrudDao<DuenoDto> {
     @Override
     public List<DuenoDto> selectAll() throws DaoException {
         try{
-            String SQL = "SELECT id_dueño,nombre_dueño,  apellido_dueño, telefono,num_identificacion, identificacion, id_ubicacion FROM  dueño";
+            String SQL = "SELECT id_dueno,nombre_dueno,  apellido_dueno, telefono,num_identificacion, identificacion, id_ubicacion FROM  Dueno";
             return jdbcTemplate.query(SQL, new DuenoMapper());
         }catch(DataAccessException ex){
             throw new DaoException(ex);
@@ -34,30 +34,26 @@ public class dueñoImplements implements CrudDao<DuenoDto> {
 
     @Override
     public DuenoDto insert(DuenoDto duenoDto) throws DaoException {
-        String INSERT = "INSERT INTO dueño (id_dueño, nombre_dueño, apellido_dueño, telefono, identificacion, id_ubicacion,num_identificacion)\n" +
-                "VALUES ( ?, ?, ?, ?,?, ?,?,?)";
-        try{
+        String INSERT = "INSERT INTO Dueno (nombre_dueno, apellido_dueno, telefono, identificacion, id_ubicacion, num_identificacion) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
             jdbcTemplate.update(INSERT,
-                    duenoDto.getId_Dueño(),
                     duenoDto.getNombreDueño(),
                     duenoDto.getApellidoDueño(),
                     duenoDto.getTelefono(),
-                    duenoDto.getNum_identificacion(),
-                    duenoDto.getTipoIdentificacionDto().getIdIdentificacion(),
-                    duenoDto.getUbicacionDto().getIdUbicacion());
-
-        }catch(DataAccessException ex){
+                    duenoDto.getTipoIdentificacionDto().getIdIdentificacion(), // UUID
+                    duenoDto.getUbicacionDto().getIdUbicacion(), // UUID
+                    duenoDto.getNum_identificacion());
+        } catch (DataAccessException ex) {
             throw new DaoException(ex);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new DaoException(ex);
         }
-
         return duenoDto;
     }
 
     @Override
     public DuenoDto getId(UUID id) throws DaoException {
-        String selectID ="SELECT   id_dueño,nombre_dueño,  apellido_dueño, telefono,num_identificacion, identificacion, id_ubicacion FROM  dueño where id_dueño=? ";
+        String selectID ="SELECT   id_dueno,nombre_dueno,  apellido_dueno, telefono,num_identificacion, identificacion, id_ubicacion FROM  Dueno where id_dueno=? ";
         try {
             return this.jdbcTemplate.queryForObject(selectID, new DuenoMapper(), id);
         }catch (EmptyResultDataAccessException e){
@@ -69,20 +65,25 @@ public class dueñoImplements implements CrudDao<DuenoDto> {
 
     @Override
     public void update(DuenoDto duenoDto) throws DaoException {
-        String UPDATE=("UPDATE dueño  SET nombre_dueño=?, apellido_dueño=?, telefono=?, identificacion=?,id_ubicacion=?,num_identificacion=?   WHERE id_dueño=?");
+        // C
+        String UPDATE = "UPDATE Dueno SET nombre_dueno=?, apellido_dueno=?, telefono=?, identificacion=?, id_ubicacion=?, num_identificacion=? WHERE id_dueno=?";
+
         try {
+
             jdbcTemplate.update(UPDATE,
-                    duenoDto.getId_Dueño(),
                     duenoDto.getNombreDueño(),
                     duenoDto.getApellidoDueño(),
                     duenoDto.getTelefono(),
+                    duenoDto.getTipoIdentificacionDto().getIdIdentificacion(),
                     duenoDto.getUbicacionDto().getIdUbicacion(),
                     duenoDto.getNum_identificacion(),
-                    duenoDto.getTipoIdentificacionDto().getIdIdentificacion()
+                    duenoDto.getId_Dueño()
             );
-        }catch(DataAccessException ex){
+        } catch (DataAccessException ex) {
+
             throw new DaoException(ex);
-        }catch (Exception ex){
+        } catch (Exception ex) {
+
             throw new DaoException(ex);
         }
     }
@@ -90,7 +91,7 @@ public class dueñoImplements implements CrudDao<DuenoDto> {
     @Override
     public void deleteId(UUID id) throws DaoException {
 
-        String DELETE = "DELETE FROM dueño WHERE id_dueño=?";
+        String DELETE = "DELETE FROM Dueno WHERE id_dueno=?";
         try {
             jdbcTemplate.update(DELETE, id );
 

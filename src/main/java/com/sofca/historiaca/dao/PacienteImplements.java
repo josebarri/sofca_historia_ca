@@ -27,7 +27,7 @@ public class PacienteImplements implements CrudDao<PacienteDto> {
             String SQL = "SELECT  p.id_paciente, p.fecha_registro, m.id_mascota, m.nombre_mascota,m.fnac_mascota,\n" +
                     "    m.raza,\n" +
                     "    m.especie,\n" +
-                    "\tm.id_dueño\n" +
+                    "\tm.id_dueno\n" +
                     "FROM \n" +
                     "    paciente p\n" +
                     "INNER JOIN \n" +
@@ -63,7 +63,7 @@ public class PacienteImplements implements CrudDao<PacienteDto> {
         String selectID ="SELECT  p.id_paciente, p.fecha_registro, m.id_mascota, m.nombre_mascota,m.fnac_mascota,\n" +
                 "    m.raza,\n" +
                 "    m.especie,\n" +
-                "\tm.id_dueño\n" +
+                "\tm.id_dueno\n" +
                 "FROM \n" +
                 "    paciente p\n" +
                 "INNER JOIN \n" +
