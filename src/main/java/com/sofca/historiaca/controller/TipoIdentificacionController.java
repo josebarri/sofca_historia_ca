@@ -21,7 +21,7 @@ public class TipoIdentificacionController {
     private CrudBusiness<TipoIdentificacionDto> crudBusiness;
 
     @Operation(summary = "List TipoIdentificacion", description = "Proporciona una lista de identificaciones.")
-    @GetMapping("/tipoIdentAll")
+    @GetMapping()
     public ResponseEntity<ResponseMessage> selectAll() {
         List<TipoIdentificacionDto> list = null;
         ResponseMessage message = null;
@@ -36,7 +36,7 @@ public class TipoIdentificacionController {
 
 
 
-    @PostMapping("/saveTipoIdent")
+    @PostMapping()
     public ResponseEntity<ResponseMessage<TipoIdentificacionDto>> insert(@RequestBody TipoIdentificacionDto request){
         log.debug("REST request to insert TipoIdentificacion: {}", request);
         ResponseMessage message = null;
@@ -50,8 +50,8 @@ public class TipoIdentificacionController {
     }
 
 
-    @Operation(summary = "List EPS", description = "Proporciona una EPS disponibles.")
-    @GetMapping("/tipoIdent/{id}")
+    @Operation(summary = "List identificacion", description = "Proporciona una indentificacion disponibles.")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMessage<TipoIdentificacionDto>> findById(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate Planilla : {}", id);
         ResponseMessage message =null;
@@ -70,7 +70,7 @@ public class TipoIdentificacionController {
 
 
     @Operation(summary = "delete tipo identificacion", description = "Elimina un tipo identificacion.")
-    @DeleteMapping("/tipoIdent/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ResponseMessage<TipoIdentificacionDto>> dalete(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate Planilla : {}", id);
         ResponseMessage message =null;

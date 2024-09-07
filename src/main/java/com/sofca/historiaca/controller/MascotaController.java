@@ -22,7 +22,7 @@ public class MascotaController {
     private CrudBusiness<MascotaDto> crudBusiness;
 
     @Operation(summary = "List mascota", description = "Proporciona una lista de mascotas.")
-    @GetMapping("/mascotaAll")
+    @GetMapping()
     public ResponseEntity<ResponseMessage> selectAll() {
         List<MascotaDto> list = null;
         ResponseMessage message = null;
@@ -36,7 +36,7 @@ public class MascotaController {
     }
 
 
-    @PostMapping("/saveMascota")
+    @PostMapping()
     public ResponseEntity<ResponseMessage<MascotaDto>> insert(@RequestBody MascotaDto request){
         log.debug("REST request to insert dueno: {}", request);
         ResponseMessage message = null;
@@ -51,7 +51,7 @@ public class MascotaController {
 
 
     @Operation(summary = "List Mascota", description = "Proporciona una Mascota disponible.")
-    @GetMapping("/mascota/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMessage<MascotaDto>> findById(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate Planilla : {}", id);
         ResponseMessage message =null;
@@ -69,7 +69,7 @@ public class MascotaController {
 
 
     @Operation(summary = "delete una mascota", description = "Elimina una mascota.")
-    @DeleteMapping("/mascota/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ResponseMessage<MascotaDto>> dalete(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate mascota : {}", id);
         ResponseMessage message =null;

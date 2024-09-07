@@ -25,7 +25,7 @@ public class PacienteController {
 
 
     @Operation(summary = "List paciente", description = "Proporciona una lista de pacientes.")
-    @GetMapping("/pacienteAll")
+    @GetMapping()
     public ResponseEntity<ResponseMessage> selectAll() {
         List<PacienteDto> list = null;
         ResponseMessage message = null;
@@ -41,7 +41,7 @@ public class PacienteController {
 
 
 
-    @PostMapping("/savePaciente")
+    @PostMapping()
     public ResponseEntity<ResponseMessage<PacienteDto>> insert(@RequestBody PacienteDto request){
         log.debug("REST request to insert dueno: {}", request);
         ResponseMessage message = null;
@@ -56,7 +56,7 @@ public class PacienteController {
 
 
     @Operation(summary = "List paciente", description = "Proporciona un paciente disponible.")
-    @GetMapping("/paciente/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMessage<PacienteDto>> findById(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate Planilla : {}", id);
         ResponseMessage message =null;
@@ -73,7 +73,7 @@ public class PacienteController {
     }
 
     @Operation(summary = "delete un paciente", description = "Elimina un paciente.")
-    @DeleteMapping("/paciente/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ResponseMessage<PacienteDto>> dalete(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate paciente : {}", id);
         ResponseMessage message =null;

@@ -24,7 +24,7 @@ public class UbicacionController {
 
 
     @Operation(summary = "List ubicacion", description = "Proporciona una lista de Ubicaciones disponibles.")
-    @GetMapping("/UbicacionAll")
+    @GetMapping()
     public ResponseEntity<ResponseMessage> selectAll() {
         List<UbicacionDto> list = null;
         ResponseMessage message = null;
@@ -39,7 +39,7 @@ public class UbicacionController {
 
 
 
-    @PostMapping("/saveUbicacion")
+    @PostMapping()
     public ResponseEntity<ResponseMessage<UbicacionDto>> insert(@RequestBody UbicacionDto request){
         log.debug("REST request to insert Eps: {}", request);
         ResponseMessage message = null;
@@ -54,7 +54,7 @@ public class UbicacionController {
 
 
     @Operation(summary = "List EPS", description = "Proporciona una EPS disponibles.")
-    @GetMapping("/ubicacion/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMessage<UbicacionDto>> findById(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate Planilla : {}", id);
         ResponseMessage message =null;
@@ -73,7 +73,7 @@ public class UbicacionController {
 
 
     @Operation(summary = "delete ubicacion", description = "Elimina una ubicacion.")
-    @DeleteMapping("/ubicacion/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ResponseMessage<UbicacionDto>> dalete(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate Planilla : {}", id);
         ResponseMessage message =null;

@@ -5,6 +5,8 @@ import com.sofca.historiaca.dto.TipoIdentificacionDto;
 import com.sofca.historiaca.util.ResponseMessage;
 import com.sofca.historiaca.util.crud.CrudBusiness;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +17,14 @@ import java.util.UUID;
 
 @RestController
 @Slf4j
-@RequestMapping("/dueño")
+@RequestMapping("/dueno")
 @CrossOrigin
 public class DuenoController {
     @Autowired
     private CrudBusiness<DuenoDto> crudBusiness;
 
     @Operation(summary = "List Dueños", description = "Proporciona una lista de Dueños.")
-    @GetMapping("/dueñoAll")
+    @GetMapping()
     public ResponseEntity<ResponseMessage> selectAll() {
         List<DuenoDto> list = null;
         ResponseMessage message = null;
@@ -37,7 +39,8 @@ public class DuenoController {
 
 
 
-    @PostMapping("/saveDueño")
+    @PostMapping()
+    @Operation(summary = "insert dueño", description = "Permite registrar un dueño de mascota.")
     public ResponseEntity<ResponseMessage<DuenoDto>> insert(@RequestBody DuenoDto request){
         log.debug("REST request to insert dueno: {}", request);
         ResponseMessage message = null;
@@ -52,7 +55,7 @@ public class DuenoController {
 
 
     @Operation(summary = "List Dueno", description = "Proporciona una Dueño disponible.")
-    @GetMapping("/Dueño/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseMessage<DuenoDto>> findById(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate Planilla : {}", id);
         ResponseMessage message =null;
@@ -71,7 +74,7 @@ public class DuenoController {
 
 
     @Operation(summary = "delete un dueño", description = "Elimina un dueño.")
-    @DeleteMapping("/dueño/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ResponseMessage<DuenoDto>> dalete(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate dueño : {}", id);
         ResponseMessage message =null;
