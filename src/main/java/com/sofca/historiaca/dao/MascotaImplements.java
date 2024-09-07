@@ -101,10 +101,9 @@ public MascotaImplements(DataSource dataSource){
 
     @Override
     public void deleteId(UUID id) throws DaoException {
-        MascotaDto mascotaDto = new MascotaDto();
         String DELETE = "DELETE FROM mascota WHERE id_mascota=?";
         try {
-            jdbcTemplate.update(DELETE, mascotaDto.getId_mascota() );
+            jdbcTemplate.update(DELETE, id );
 
         }catch(DataAccessException ex){
             throw new DaoException(ex);

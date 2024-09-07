@@ -82,7 +82,7 @@ public class TipoIdentificacionImplements implements CrudDao<TipoIdentificacionD
         TipoIdentificacionDto tipoIdentificacionDto = new TipoIdentificacionDto();
         String DELETE = "DELETE FROM tipo_identificacion WHERE id_identificacion=?";
         try {
-            jdbcTemplate.update(DELETE, tipoIdentificacionDto.getIdIdentificacion() );
+            jdbcTemplate.update(DELETE, id );
 
         }catch(DataAccessException ex){
             throw new DaoException(ex);

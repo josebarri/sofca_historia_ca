@@ -88,10 +88,10 @@ public class dueñoImplements implements CrudDao<DuenoDto> {
 
     @Override
     public void deleteId(UUID id) throws DaoException {
-        DuenoDto duenoDto = new DuenoDto();
+
         String DELETE = "DELETE FROM dueño WHERE id_dueño=?";
         try {
-            jdbcTemplate.update(DELETE, duenoDto.getId_Dueño() );
+            jdbcTemplate.update(DELETE, id );
 
         }catch(DataAccessException ex){
             throw new DaoException(ex);

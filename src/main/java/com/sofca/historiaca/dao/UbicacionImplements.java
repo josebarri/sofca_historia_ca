@@ -77,10 +77,10 @@ public class UbicacionImplements implements CrudDao<UbicacionDto> {
 
     @Override
     public void deleteId(UUID id) throws DaoException {
-        UbicacionDto ubicacionDto = new UbicacionDto();
+
         String DELETE = "DELETE FROM ubicacion WHERE id_ubicacion=";
         try {
-            jdbcTemplate.update(DELETE, ubicacionDto.getIdUbicacion());
+            jdbcTemplate.update(DELETE, id);
 
         }catch(DataAccessException ex){
             throw new DaoException(ex);
