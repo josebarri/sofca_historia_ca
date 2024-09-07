@@ -34,10 +34,9 @@ public class TipoIdentificacionImplements implements CrudDao<TipoIdentificacionD
 
     @Override
     public TipoIdentificacionDto insert(TipoIdentificacionDto tipoIdentificacionDto) throws DaoException {
-        String INSERT = "INSERT INTO tipo_identificacion (id_identificacion, tipo) VALUES ( ?, ?)";
+        String INSERT = "INSERT INTO tipo_identificacion ( tipo) VALUES ( ?)";
         try{
             jdbcTemplate.update(INSERT,
-                    tipoIdentificacionDto.getIdIdentificacion(),
                     tipoIdentificacionDto.getTipo());
 
         }catch(DataAccessException ex){
@@ -52,7 +51,7 @@ public class TipoIdentificacionImplements implements CrudDao<TipoIdentificacionD
 
     @Override
     public TipoIdentificacionDto getId(UUID id) throws DaoException {
-        String selectID ="SELECT  id_identificacion, tipo, from tipo_identificacion where id_identificacion= ?";
+        String selectID ="SELECT  id_identificacion, tipo from tipo_identificacion where id_identificacion= ?";
         try {
             return this.jdbcTemplate.queryForObject(selectID, new TipoIdentidadMapper(), id);
         }catch (EmptyResultDataAccessException e){
@@ -64,7 +63,7 @@ public class TipoIdentificacionImplements implements CrudDao<TipoIdentificacionD
 
     @Override
     public void update(TipoIdentificacionDto tipoIdentificacionDto) throws DaoException {
-        String UPDATE=("UPDATE tipo_identificacion  SET tipo=? WHERE tipo_identificacion=?");
+        String UPDATE=("UPDATE tipo_identificacion  SET tipo=? WHERE id_identificacion=?");
         try {
             jdbcTemplate.update(UPDATE,
                     tipoIdentificacionDto.getTipo(),
