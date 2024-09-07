@@ -73,7 +73,7 @@ public class UbicacionController {
 
 
     @Operation(summary = "List EPS", description = "Proporciona una EPS disponibles.")
-    @PostMapping("/delete")
+    @DeleteMapping("/ubicacion/delete/{id}")
     public ResponseEntity<ResponseMessage<UbicacionDto>> dalete(@PathVariable("id") UUID id ) {
         log.debug("REST request to saveOrUpdate Planilla : {}", id);
         ResponseMessage message =null;
