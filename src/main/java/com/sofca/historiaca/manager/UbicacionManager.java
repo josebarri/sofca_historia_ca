@@ -6,10 +6,11 @@ import com.sofca.historiaca.exception.DaoException;
 import com.sofca.historiaca.exception.ManagerException;
 import com.sofca.historiaca.util.crud.CrudDao;
 import com.sofca.historiaca.util.crud.CrudManager;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
-
+@Component
 public class UbicacionManager implements CrudManager<UbicacionDto> {
     public CrudDao<UbicacionDto> crudDao;
 

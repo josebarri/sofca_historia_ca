@@ -3,7 +3,6 @@ package com.sofca.historiaca.business;
 import com.sofca.historiaca.dto.MascotaDto;
 import com.sofca.historiaca.exception.BusinessException;
 import com.sofca.historiaca.exception.ManagerException;
-import com.sofca.historiaca.manager.EpsManagerInterface;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
