@@ -33,10 +33,9 @@ public class UbicacionImplements implements CrudDao<UbicacionDto> {
 
     @Override
     public UbicacionDto insert(UbicacionDto ubicacionDto) throws DaoException {
-        String INSERT = "INSERT INTO ubicacion (id_ubicacion, ciudad, direccion) VALUES ( ?, ?,?)";
+        String INSERT = "INSERT INTO ubicacion ( ciudad, direccion) VALUES ( ?,?)";
         try{
             jdbcTemplate.update(INSERT,
-                    ubicacionDto.getIdUbicacion(),
                     ubicacionDto.getCiudad(),
                     ubicacionDto.getDireccion());
 
@@ -66,9 +65,9 @@ public class UbicacionImplements implements CrudDao<UbicacionDto> {
         String UPDATE="UPDATE ubicacion  SET ciudad=?, direccion=? WHERE id_ubicacion=?";
         try {
             jdbcTemplate.update(UPDATE,
-                    ubicacionDto.getIdUbicacion(),
+                    ubicacionDto.getCiudad(),
                     ubicacionDto.getDireccion(),
-                    ubicacionDto.getCiudad());
+                    ubicacionDto.getIdUbicacion());
         }catch(DataAccessException ex){
             throw new DaoException(ex);
         }catch (Exception ex){
@@ -79,7 +78,7 @@ public class UbicacionImplements implements CrudDao<UbicacionDto> {
     @Override
     public void deleteId(UUID id) throws DaoException {
 
-        String DELETE = "DELETE FROM ubicacion WHERE id_ubicacion=";
+        String DELETE = "DELETE FROM ubicacion WHERE id_ubicacion=?";
         try {
             jdbcTemplate.update(DELETE, id);
 

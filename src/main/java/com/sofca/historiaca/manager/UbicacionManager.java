@@ -34,7 +34,7 @@ public class UbicacionManager implements CrudManager<UbicacionDto> {
     @Override
     public UbicacionDto insert(UbicacionDto ubicacionDto) throws ManagerException {
         try {
-            UbicacionDto ubicacionDto1 = this.crudDao.insert(ubicacionDto);
+            UbicacionDto ubicacionDto1 = this.crudDao.getId(ubicacionDto.getIdUbicacion());
             if (ubicacionDto1 == null) {
                 this.crudDao.insert(ubicacionDto);
             } else {
