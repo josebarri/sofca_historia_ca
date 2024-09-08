@@ -20,7 +20,6 @@ public class UserJdbcRepository {
             UserDto user = jdbcTemplate.queryForObject(sql, new Object[]{correo}, new UserMapper());
             return Optional.of(user);
         } catch (Exception e) {
-            e.printStackTrace();
             return Optional.empty();
         }
     }

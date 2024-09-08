@@ -27,6 +27,11 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/mascota/**").permitAll()
+                        .requestMatchers("/dueno/**").permitAll()
+                        .requestMatchers("/paciente/**").permitAll()
+                        .requestMatchers("/tipoIdent/**").permitAll()
+                        .requestMatchers("/ubicacion/**").permitAll()
                         .requestMatchers("/api/v1/**").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated()  // Todas las demás solicitudes deben estar autenticadas
