@@ -14,12 +14,13 @@ public class UserJdbcRepository {
     private JdbcTemplate jdbcTemplate;
 
     public Optional<UserDto> findByCorreo(String correo) {
-        String sql = "SELECT * FROM user WHERE correo = ?";
+        String sql = "SELECT * FROM usuarios WHERE correo = ?";
 
         try {
             UserDto user = jdbcTemplate.queryForObject(sql, new Object[]{correo}, new UserMapper());
             return Optional.of(user);
         } catch (Exception e) {
+            e.printStackTrace();
             return Optional.empty();
         }
     }

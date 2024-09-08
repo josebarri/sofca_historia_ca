@@ -13,7 +13,7 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    private String SECRET_KEY = "secret";  // Cambia a una clave más segura
+    private String SECRET_KEY = "586E3272357538782F413F4428472B4B6250655368566B597033733676397924";  // Cambia a una clave más segura
 
     // Genera un token JWT basado en un correo electrónico
     public String generateToken(String correo) {

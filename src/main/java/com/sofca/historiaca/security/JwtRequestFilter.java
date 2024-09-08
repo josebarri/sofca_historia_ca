@@ -21,6 +21,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain ) throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");
 
+        String requestURI = request.getRequestURI();
+        if (requestURI.startsWith("/v3/api-docs") || requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/auth")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String correo = null;
         String jwt = null;
 

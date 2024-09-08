@@ -26,8 +26,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/v1/api-docs/**", "/swagger-ui/**").permitAll()// Permitir acceso sin autenticación a la ruta de login
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/api/v1/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated()  // Todas las demás solicitudes deben estar autenticadas
                 )
                 .sessionManagement(session -> session
