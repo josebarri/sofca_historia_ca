@@ -141,7 +141,7 @@ public class MascotaBusiness implements CrudBusiness<MascotaDto> {
     }
 
     public List<MascotaDto> importExcel(MultipartFile file) throws IOException {
-        List<MascotaDto> paises = new ArrayList<>();
+        List<MascotaDto> mascotas = new ArrayList<>();
         try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
             Sheet sheet = workbook.getSheetAt(0);
             for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -150,8 +150,7 @@ public class MascotaBusiness implements CrudBusiness<MascotaDto> {
                     Cell uuidCell = row.getCell(0);
                     String uuid = (uuidCell != null) ? uuidCell.getStringCellValue() : "";
                     MascotaDto mascotaDto = new MascotaDto();
-
-
+                    if (uuid.isEmpty()){
                         mascotaDto.setNombre_mascota(row.getCell(1).getStringCellValue());
                         mascotaDto.setRaza(row.getCell(2).getStringCellValue());
                         mascotaDto.setEspecie(row.getCell(3).getStringCellValue());
@@ -159,11 +158,26 @@ public class MascotaBusiness implements CrudBusiness<MascotaDto> {
                         Date date = row.getCell(4).getDateCellValue();
                         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                         mascotaDto.setFnac_mascota(localDate);
-                        
+
                         DuenoDto duenoDto = new DuenoDto();
                         duenoDto.setId_Dueño(UUID.fromString(row.getCell(5).getStringCellValue()));
                         mascotaDto.setDuenoDto(duenoDto);
                         this.crudManager.insert(mascotaDto);
+                    } else {
+                        mascotaDto.setId_mascota(UUID.fromString(row.getCell(0).getStringCellValue()));
+                        mascotaDto.setNombre_mascota(row.getCell(1).getStringCellValue());
+                        mascotaDto.setRaza(row.getCell(2).getStringCellValue());
+                        mascotaDto.setEspecie(row.getCell(3).getStringCellValue());
+
+                        Date date = row.getCell(4).getDateCellValue();
+                        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        mascotaDto.setFnac_mascota(localDate);
+
+                        DuenoDto duenoDto = new DuenoDto();
+                        duenoDto.setId_Dueño(UUID.fromString(row.getCell(5).getStringCellValue()));
+                        mascotaDto.setDuenoDto(duenoDto);
+                        this.crudManager.insert(mascotaDto);
+                    }
                 }
             }
 
@@ -171,7 +185,7 @@ public class MascotaBusiness implements CrudBusiness<MascotaDto> {
             throw new RuntimeException(e);
         }
 
-        return paises;
+        return mascotas;
     }
 
 }
