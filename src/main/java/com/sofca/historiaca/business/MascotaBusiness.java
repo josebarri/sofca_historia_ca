@@ -1,5 +1,6 @@
 package com.sofca.historiaca.business;
 
+import com.sofca.historiaca.dto.DuenoDto;
 import com.sofca.historiaca.dto.MascotaDto;
 import com.sofca.historiaca.exception.BusinessException;
 import com.sofca.historiaca.exception.ManagerException;
@@ -18,7 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -118,9 +122,13 @@ public class MascotaBusiness implements CrudBusiness<MascotaDto> {
                 Cell cell2 = row.createCell(1);
                 cell2.setCellValue(mascota.getNombre_mascota());
                 Cell cell3 = row.createCell(2);
-                cell3.setCellValue(mascota.getNombre_mascota());
+                cell3.setCellValue(mascota.getRaza());
                 Cell cell4 = row.createCell(3);
-                cell4.setCellValue(mascota.getNombre_mascota());
+                cell4.setCellValue(mascota.getEspecie());
+                Cell cell5 = row.createCell(4);
+                cell5.setCellValue(mascota.getDuenoDto().getNombreDueño());
+                Cell cell6 = row.createCell(5);
+                cell6.setCellValue(mascota.getDuenoDto().getTelefono());
             }
 
             try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -142,14 +150,20 @@ public class MascotaBusiness implements CrudBusiness<MascotaDto> {
                     Cell uuidCell = row.getCell(0);
                     String uuid = (uuidCell != null) ? uuidCell.getStringCellValue() : "";
                     MascotaDto mascotaDto = new MascotaDto();
-                    if (uuid.isEmpty()) {
+
+
                         mascotaDto.setNombre_mascota(row.getCell(1).getStringCellValue());
+                        mascotaDto.setRaza(row.getCell(2).getStringCellValue());
+                        mascotaDto.setEspecie(row.getCell(3).getStringCellValue());
+
+                        Date date = row.getCell(4).getDateCellValue();
+                        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        mascotaDto.setFnac_mascota(localDate);
+                        
+                        DuenoDto duenoDto = new DuenoDto();
+                        duenoDto.setId_Dueño(UUID.fromString(row.getCell(5).getStringCellValue()));
+                        mascotaDto.setDuenoDto(duenoDto);
                         this.crudManager.insert(mascotaDto);
-                    } else {
-                        mascotaDto.setId_mascota(UUID.fromString(row.getCell(0).getStringCellValue()));
-                        mascotaDto.setNombre_mascota(row.getCell(1).getStringCellValue());
-                        this.crudManager.update(mascotaDto);
-                    }
                 }
             }
 

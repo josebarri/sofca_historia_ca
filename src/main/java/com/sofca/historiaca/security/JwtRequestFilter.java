@@ -22,7 +22,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         final String authorizationHeader = request.getHeader("Authorization");
 
         String requestURI = request.getRequestURI();
-        if (requestURI.startsWith("/v3/api-docs") || requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/auth")|| requestURI.startsWith("/mascota")|| requestURI.startsWith("/ubicacion")|| requestURI.startsWith("/tipoIdent")|| requestURI.startsWith("/paciente")|| requestURI.startsWith("/dueno")) {
+        if (requestURI.startsWith("/v3/api-docs") || requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/auth")|| requestURI.startsWith("/mascota")|| requestURI.startsWith("/ubicacion")|| requestURI.startsWith("/tipoIdent")|| requestURI.startsWith("/paciente")|| requestURI.startsWith("/dueno") || requestURI.startsWith("/importar-excel")) {
             filterChain.doFilter(request, response);
             return;
         }

@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/mascota/**").permitAll()
+                        .requestMatchers("/importar-excel/**").permitAll()
                         .requestMatchers("/dueno/**").permitAll()
                         .requestMatchers("/paciente/**").permitAll()
                         .requestMatchers("/tipoIdent/**").permitAll()
