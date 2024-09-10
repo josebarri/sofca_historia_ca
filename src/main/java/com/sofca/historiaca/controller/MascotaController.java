@@ -99,13 +99,10 @@ public class MascotaController {
         try {
             stream = this.mascotaBusiness.exportExcel();
             byte[] bytes = stream.readAllBytes();
-
-            // Establecer encabezados para indicar que es un archivo Excel
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=mascotas.xlsx");
             headers.add(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
-            // Retornar el archivo Excel como byte[] y los headers correctos
             return ResponseEntity.ok().headers(headers).body(bytes);
 
         } catch (Exception e) {
@@ -117,20 +114,15 @@ public class MascotaController {
     @PostMapping(value = "/importar-excel", consumes = "multipart/form-data")
     public ResponseEntity<ResponseMessage<String>> importExcel(@RequestParam("file") MultipartFile file) {
         try {
-            // Llama al servicio para procesar la importación del archivo
             mascotaBusiness.importExcel(file);
-
-            // Devuelve una respuesta de éxito
             ResponseMessage<String> message = new ResponseMessage<>(200, "El archivo ha sido importado correctamente.", null);
             return ResponseEntity.ok(message);
 
         } catch (IOException e) {
-            // Devuelve un mensaje de error en caso de problemas con el archivo
             ResponseMessage<String> message = new ResponseMessage<>(500, "Error al procesar el archivo: " + e.getMessage(), null);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
 
         } catch (Exception e) {
-            // Maneja cualquier otro tipo de error
             ResponseMessage<String> message = new ResponseMessage<>(400, "Ocurrió un error: " + e.getMessage(), null);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
         }
