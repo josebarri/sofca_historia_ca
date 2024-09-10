@@ -2,6 +2,7 @@ package com.sofca.historiaca.business;
 
 import com.sofca.historiaca.dto.DuenoDto;
 import com.sofca.historiaca.dto.MascotaDto;
+import com.sofca.historiaca.dto.PacienteDto;
 import com.sofca.historiaca.exception.BusinessException;
 import com.sofca.historiaca.exception.ManagerException;
 import com.sofca.historiaca.util.crud.CrudBusiness;
@@ -11,6 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,8 @@ import java.util.UUID;
 @Component
 public class MascotaBusiness implements CrudBusiness<MascotaDto> {
     private CrudManager<MascotaDto> crudManager;
+    @Autowired
+    private CrudManager<PacienteDto> pacienteDtoCrudManager;
     public MascotaBusiness(CrudManager<MascotaDto> crudManager){
         this.crudManager = crudManager;
     }
@@ -162,7 +166,10 @@ public class MascotaBusiness implements CrudBusiness<MascotaDto> {
                         DuenoDto duenoDto = new DuenoDto();
                         duenoDto.setId_Dueño(UUID.fromString(row.getCell(5).getStringCellValue()));
                         mascotaDto.setDuenoDto(duenoDto);
-                        this.crudManager.insert(mascotaDto);
+                        MascotaDto result = this.crudManager.insert(mascotaDto);
+                        PacienteDto pacienteDto = new PacienteDto();
+                        pacienteDto.setMascotaDto(result);
+                        this.pacienteDtoCrudManager.insert(pacienteDto);
                     } else {
                         mascotaDto.setId_mascota(UUID.fromString(row.getCell(0).getStringCellValue()));
                         mascotaDto.setNombre_mascota(row.getCell(1).getStringCellValue());
