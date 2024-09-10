@@ -112,9 +112,27 @@ public class MascotaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    @Operation(summary = "Inserta o actualiza un listado de mascotas de un excel")
+
+    @Operation(summary = "Inserta o actualiza un listado de mascotas desde un Excel")
     @PostMapping(value = "/importar-excel", consumes = "multipart/form-data")
-    public void importExcel(@RequestParam("file") MultipartFile file) throws IOException {
-        this.mascotaBusiness.importExcel(file);
+    public ResponseEntity<ResponseMessage<String>> importExcel(@RequestParam("file") MultipartFile file) {
+        try {
+            // Llama al servicio para procesar la importación del archivo
+            mascotaBusiness.importExcel(file);
+
+            // Devuelve una respuesta de éxito
+            ResponseMessage<String> message = new ResponseMessage<>(200, "El archivo ha sido importado correctamente.", null);
+            return ResponseEntity.ok(message);
+
+        } catch (IOException e) {
+            // Devuelve un mensaje de error en caso de problemas con el archivo
+            ResponseMessage<String> message = new ResponseMessage<>(500, "Error al procesar el archivo: " + e.getMessage(), null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+
+        } catch (Exception e) {
+            // Maneja cualquier otro tipo de error
+            ResponseMessage<String> message = new ResponseMessage<>(400, "Ocurrió un error: " + e.getMessage(), null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+        }
     }
 }
