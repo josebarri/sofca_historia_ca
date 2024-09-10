@@ -6,11 +6,16 @@ import com.sofca.historiaca.mapper.MascotaMapper;
 import com.sofca.historiaca.util.crud.CrudDao;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 
 import javax.sql.DataSource;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -41,17 +46,27 @@ public MascotaImplements(DataSource dataSource){
     @Override
     public MascotaDto insert(MascotaDto mascotaDto) throws DaoException {
         String INSERT = "INSERT INTO mascota ( fnac_mascota, nombre_mascota, raza, especie, id_dueno)VALUES ( ?, ?, ?, ?,?)";
-        try{
-            jdbcTemplate.update(INSERT,
-                    mascotaDto.getFnac_mascota(),
-                    mascotaDto.getNombre_mascota(),
-                    mascotaDto.getRaza(),
-                    mascotaDto.getEspecie(),
-                    mascotaDto.getDuenoDto().getId_Dueño());
-
+        try {
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            jdbcTemplate.update(con -> {
+                PreparedStatement preparedStatement = con.prepareStatement(INSERT, new String[]{"id_mascota"});
+                preparedStatement.setObject(1, mascotaDto.getFnac_mascota());
+                preparedStatement.setString(2, mascotaDto.getNombre_mascota());
+                preparedStatement.setString(3, mascotaDto.getRaza());
+                preparedStatement.setString(4, mascotaDto.getEspecie());
+                preparedStatement.setObject(5, mascotaDto.getDuenoDto().getId_Dueño());
+                return preparedStatement;
+            }, keyHolder);
+            Map<String, Object> keys = keyHolder.getKeyList().get(0);
+            mascotaDto.setId_mascota((UUID) keys.get("id_mascota"));
+        }catch (BadSqlGrammarException be) {
+            System.out.println("entro aqui");
+            be.printStackTrace();
         }catch(DataAccessException ex){
+            ex.printStackTrace();
             throw new DaoException(ex);
         }catch (Exception ex){
+            ex.printStackTrace();
             throw new DaoException(ex);
         }
 
