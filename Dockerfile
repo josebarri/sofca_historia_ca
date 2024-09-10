@@ -17,7 +17,7 @@ FROM eclipse-temurin:17-jre
 EXPOSE 1020
 
 # Copiar el archivo JAR construido desde la etapa anterior
-COPY --from=build /app/target/institucion-0.0.1-SNAPSHOT.jar /app/historiaca.jar
+COPY --from=build /app/target/historiaca-0.0.1-SNAPSHOT.jar /app/historiaca-0.0.1-SNAPSHOT.jar
 
 # Establecer el punto de entrada para ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "/app/historiaca.jar"]
+ENTRYPOINT ["java", "-jar", "/app/historiaca-0.0.1-SNAPSHOT.jar"]
